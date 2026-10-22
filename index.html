@@ -39,6 +39,7 @@
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbx8qVxUp51JAchkyBSVscFVj0rPfojR334O1OteqhGIQhCM_toSjfTtQIa4N-PVHZhDbA/exec";let token="",me=null,revenues=[];
 let deferredInstallPrompt=null;
+const $=id=>document.getElementById(id);
 const isStandalone=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
 const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent);
 function updateInstallBanner(){const banner=$('installBanner');if(!banner)return;banner.classList.toggle('hidden',isStandalone());if(isIOS())$('installSubtitle').textContent='للآيفون: اتبع خطوات المشاركة ثم «إضافة إلى الشاشة الرئيسية».';else $('installSubtitle').textContent=deferredInstallPrompt?'اضغط تثبيت الآن لإضافة التطبيق إلى جهازك.':'أضف التطبيق إلى الشاشة الرئيسية للوصول السريع من جهازك.';$('installBtn').textContent=isIOS()?'طريقة التثبيت على الآيفون':'تثبيت التطبيق الآن'}
@@ -50,7 +51,7 @@ $('installLaterBtn').addEventListener('click',()=>$('installBanner').classList.a
 $('closeInstallHelp').addEventListener('click',()=>$('installHelp').classList.add('hidden'));
 $('installHelp').addEventListener('click',e=>{if(e.target===$('installHelp'))$('installHelp').classList.add('hidden')});
 updateInstallBanner();
-const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('ar-SA',{style:'currency',currency:'SAR',maximumFractionDigits:2}).format(Number(n)||0);
+const money=n=>new Intl.NumberFormat('ar-SA',{style:'currency',currency:'SAR',maximumFractionDigits:2}).format(Number(n)||0);
 function notice(m,t='success'){const e=$('notice');e.textContent=m;e.className='notice '+t;e.classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});if(t==='success')setTimeout(()=>e.classList.add('hidden'),4500)}
 async function api(action,data={}){if(!API_URL||API_URL.includes('PASTE_YOUR'))throw Error('رابط خدمة تسجيل الدخول غير مضبوط.');let response;try{response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token,...data})})}catch(e){throw Error('تعذر الاتصال بخدمة تسجيل الدخول. تحقق من الإنترنت وافتح التطبيق من الرابط الرسمي، ثم حاول مجددًا.')}let raw;try{raw=await response.text()}catch(e){throw Error('لم تصل استجابة من الخادم.')}let result;try{result=JSON.parse(raw)}catch(e){throw Error('الخادم لا يعيد استجابة صحيحة. قد يكون نشر Apps Script قديمًا أو يحتاج إلى إعادة نشر.')}if(!response.ok)throw Error('خطأ اتصال بالخادم ('+response.status+').');if(!result||!result.ok)throw Error(result&&result.error||'تعذر تنفيذ الطلب.');return result}
 function busy(b,on,label){if(on){b.dataset.old=b.textContent;b.disabled=true;b.textContent=label||'جارٍ التنفيذ…'}else{b.disabled=false;b.textContent=b.dataset.old||b.textContent}}
