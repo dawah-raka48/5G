@@ -82,7 +82,7 @@ function createUser_(u,b){
  requireRole_(u,['admin']);const name=String(b.name||'').trim(),username=String(b.username||'').trim().toLowerCase(),password=String(b.password||''),role=String(b.role||'');
  if(name.length<2||name.length>80)throw Error('اكتب اسمًا صحيحًا.');
  if(!/^[a-z0-9._-]{3,40}$/.test(username))throw Error('اسم المستخدم يجب أن يكون 3–40 حرفًا إنجليزيًا أو رقمًا أو نقطة أو شرطة.');
- if(password.length<10)throw Error('كلمة المرور يجب أن تكون 10 أحرف على الأقل.');
+ if(!password)throw Error('أدخل كلمة المرور.');
  if(CONFIG.ALLOWED_ROLES.indexOf(role)<0)throw Error('الصلاحية غير صحيحة.');
  const sh=sheet_(USERS),v=sh.getDataRange().getValues();for(let i=1;i<v.length;i++)if(String(v[i][2]).toLowerCase()===username)throw Error('اسم المستخدم مستخدم بالفعل.');
  const salt=Utilities.getUuid();sh.appendRow([Utilities.getUuid(),name,username,salt,hashPassword_(password,salt),role,true,new Date().toISOString()]);return {ok:true,message:'تم إنشاء المستخدم.'}
