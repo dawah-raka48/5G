@@ -54,7 +54,13 @@ function auth_(token){
 }
 function listRevenues_(u){
  requireRole_(u,['admin','viewer','employee']);const v=sheet_(REVENUES).getDataRange().getValues(),out=[];
- for(let i=1;i<v.length;i++){const r=v[i];if(!r[0])continue;const d=r[1] instanceof Date?r[1]:new Date(r[1]);out.push({id:String(r[0]),timestamp:isNaN(d.getTime())?'':Utilities.formatDate(d,Session.getScriptTimeZone(),'yyyy-MM-dd'),timestampDisplay:isNaN(d.getTime())?'':Utilities.formatDate(d,Session.getScriptTimeZone(),'yyyy/MM/dd HH:mm'),team:String(r[2]),amount:Number(r[3]),paymentMethod:String(r[4]),createdBy:String(r[5])})}
+ for(let i=1;i<v.length;i++){
+  const r=v[i];if(!r[0])continue;
+  // موظف إدخال البيانات يرى عملياته فقط؛ المدير والمشاهد يحتفظان بنطاق العرض الحالي.
+  if(u.role==='employee'&&String(r[6]||'').trim().toLowerCase()!==String(u.username||'').trim().toLowerCase())continue;
+  const d=r[1] instanceof Date?r[1]:new Date(r[1]);
+  out.push({id:String(r[0]),timestamp:isNaN(d.getTime())?'':Utilities.formatDate(d,Session.getScriptTimeZone(),'yyyy-MM-dd'),timestampDisplay:isNaN(d.getTime())?'':Utilities.formatDate(d,Session.getScriptTimeZone(),'yyyy/MM/dd HH:mm'),team:String(r[2]),amount:Number(r[3]),paymentMethod:String(r[4]),createdBy:String(r[5])});
+ }
  out.sort((a,b)=>b.timestampDisplay.localeCompare(a.timestampDisplay));return {ok:true,revenues:out}
 }
 function addRevenue_(u,b){
@@ -72,9 +78,11 @@ function addRevenue_(u,b){
 }
 function getReceipt_(u,b){
  requireRole_(u,['admin','viewer','employee']);const id=String(b.id||'');if(!id)throw Error('رقم الإيصال غير صحيح.');
- const v=sheet_(REVENUES).getDataRange().getValues();let fid='';
- for(let i=1;i<v.length;i++)if(String(v[i][0])===id){fid=String(v[i][7]);break}
- if(!fid)throw Error('الإيصال غير موجود.');const blob=DriveApp.getFileById(fid).getBlob(),bytes=blob.getBytes();
+ const v=sheet_(REVENUES).getDataRange().getValues();let fid='',owner='';
+ for(let i=1;i<v.length;i++)if(String(v[i][0])===id){fid=String(v[i][7]);owner=String(v[i][6]||'').trim().toLowerCase();break}
+ if(!fid)throw Error('الإيصال غير موجود.');
+ if(u.role==='employee'&&owner!==String(u.username||'').trim().toLowerCase())throw Error('ليس لديك صلاحية عرض هذا الإيصال.');
+ const blob=DriveApp.getFileById(fid).getBlob(),bytes=blob.getBytes();
  if(bytes.length>CONFIG.MAX_RECEIPT_BYTES)throw Error('تعذر عرض الإيصال بسبب الحجم.');
  return {ok:true,dataUrl:'data:'+blob.getContentType()+';base64,'+Utilities.base64Encode(bytes)}
 }
