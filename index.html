@@ -26,7 +26,7 @@
 </main><nav id="bottomNav" class="bottom-nav hidden"><button class="nav-item active" data-view="dashboard"><span>⌂</span><small>الرئيسية</small></button><button class="nav-item" data-view="revenueCard"><span>▤</span><small>الإيرادات</small></button><button class="nav-item nav-add" data-view="addCard"><span>＋</span><small>إضافة</small></button><button class="nav-item" data-view="reportsCard"><span>▥</span><small>التقارير</small></button><button class="nav-item" data-view="usersCard"><span>☷</span><small>المزيد</small></button></nav></div>
 <div id="modal" class="modal hidden"><button id="closeModal" class="btn">إغلاق ✕</button><img id="modalImage" alt="صورة الإيصال"></div>
 <script>
-const API_URL="PASTE_YOUR_APPS_SCRIPT_WEB_APP_EXEC_URL_HERE";let token="",me=null,revenues=[];
+const API_URL="https://script.google.com/macros/s/AKfycbx8qVxUp51JAchkyBSVscFVj0rPfojR334O1OteqhGIQhCM_toSjfTtQIa4N-PVHZhDbA/exec";let token="",me=null,revenues=[];
 const $=id=>document.getElementById(id), money=n=>new Intl.NumberFormat('ar-SA',{style:'currency',currency:'SAR',maximumFractionDigits:2}).format(Number(n)||0);
 function notice(m,t='success'){const e=$('notice');e.textContent=m;e.className='notice '+t;e.classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});if(t==='success')setTimeout(()=>e.classList.add('hidden'),4500)}
 function api(action,data={}){if(API_URL.includes('PASTE_YOUR'))return Promise.reject(Error('ضع رابط Google Apps Script /exec في ملف index.html أولًا.'));return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token,...data})}).then(r=>r.json()).then(r=>{if(!r||!r.ok)throw Error(r&&r.error||'تعذر تنفيذ الطلب');return r})}
