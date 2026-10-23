@@ -2,7 +2,7 @@
  * ملعب جمعية الراكة — Google Apps Script API
  * التشغيل الأول: شغّل setup() يدويًا من المحرر ووافق على الصلاحيات.
  */
-const CONFIG={SPREADSHEET_ID:'',RECEIPTS_FOLDER_ID:'',SESSION_TTL_SECONDS:21600,MAX_RECEIPT_BYTES:4*1024*1024,ALLOWED_TEAMS:['سعودي','فلبيني','هندي'],ALLOWED_ROLES:['admin','viewer','employee']};
+const CONFIG={SPREADSHEET_ID:'',RECEIPTS_FOLDER_ID:'',SESSION_TTL_SECONDS:21600,MAX_RECEIPT_BYTES:4*1024*1024,ALLOWED_TEAMS:['سعودي','مصري','سوري','فلبيني','هندي','أكاديمية'],ALLOWED_ROLES:['admin','viewer','employee']};
 const USERS='المستخدمون', REVENUES='الإيرادات', SETTINGS='الإعدادات';
 
 function setup(){
@@ -25,6 +25,7 @@ function doPost(e){
  if(a==='login')return out_(login_(b));if(a==='logout')return out_(logout_(b));
  const u=auth_(b.token);
  if(a==='listRevenues')return out_(listRevenues_(u));
+ if(a==='deleteRevenue')return out_(deleteRevenue_(u,b));
  if(a==='getReceipt')return out_(getReceipt_(u,b));
  if(a==='addRevenue')return out_(addRevenue_(u,b));
  if(a==='createUser')return out_(createUser_(u,b));
@@ -75,6 +76,23 @@ function addRevenue_(u,b){
  const id=Utilities.getUuid(),now=new Date(),lock=LockService.getScriptLock();lock.waitLock(20000);
  try{sheet_(REVENUES).appendRow([id,now,team,amount,payment,u.name,u.username,file.getId(),file.getName(),m[1]])}finally{lock.releaseLock()}
  return {ok:true,id:id,message:'تم تسجيل الإيراد.'}
+}
+function deleteRevenue_(u,b){
+ requireRole_(u,['admin']);
+ const id=String(b.id||'').trim();if(!id)throw Error('رقم العملية غير صحيح.');
+ const sh=sheet_(REVENUES),values=sh.getDataRange().getValues();let row=-1,fileId='';
+ for(let i=1;i<values.length;i++){if(String(values[i][0])===id){row=i+1;fileId=String(values[i][7]||'');break}}
+ if(row<0)throw Error('العملية غير موجودة أو تم حذفها مسبقًا.');
+ const lock=LockService.getScriptLock();lock.waitLock(20000);
+ try{
+  // Re-check under lock so a stale page cannot delete a different record.
+  const current=sh.getDataRange().getValues();let currentRow=-1,currentFile='';
+  for(let i=1;i<current.length;i++){if(String(current[i][0])===id){currentRow=i+1;currentFile=String(current[i][7]||'');break}}
+  if(currentRow<0)throw Error('العملية غير موجودة أو تم حذفها مسبقًا.');
+  if(currentFile){try{DriveApp.getFileById(currentFile).setTrashed(true)}catch(fileErr){throw Error('تعذر نقل صورة الإيصال إلى المهملات؛ لم يتم حذف العملية.')}}
+  sh.deleteRow(currentRow);
+ }finally{lock.releaseLock()}
+ return {ok:true,message:'تم حذف العملية وصورة الإيصال.'}
 }
 function getReceipt_(u,b){
  requireRole_(u,['admin','viewer','employee']);const id=String(b.id||'');if(!id)throw Error('رقم الإيصال غير صحيح.');
