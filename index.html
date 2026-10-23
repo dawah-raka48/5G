@@ -162,6 +162,27 @@ body:has(#loginView:not(.hidden)) .top .logo{width:52px;height:52px;flex-basis:5
 #loginView .login-footer .footer-ball{margin-bottom:7px;font-size:27px;color:#064f40}
 #loginView .login-footer .footer-ball:before,#loginView .login-footer .footer-ball:after{background:#d5e7de}
 @media(max-width:480px){#loginView.login{margin:14px auto 24px;border-radius:25px!important;clip-path:inset(0 round 25px)}#loginView.login:before{height:56%;background-position:center,center 45%!important}#loginView .login-brand{padding:25px 14px 27px}#loginView .login-emblem{width:78px;height:78px;font-size:43px;border-radius:23px}#loginView form{margin:0 11px 12px;padding:9px 13px 16px}#loginView .field input{min-height:55px}#loginView #loginBtn{min-height:60px}}
+
+/* Final mobile login layout polish */
+#loginView.login{position:relative;display:block;max-width:520px;width:calc(100% - 28px);margin:18px auto 32px;padding:0 0 18px!important;overflow:hidden;border-radius:30px!important;clip-path:inset(0 round 30px);background:#f3faf6!important;box-shadow:0 18px 50px rgba(7,55,43,.16)}
+#loginView.login:before{top:0!important;left:0!important;right:0!important;height:57%!important;background-image:linear-gradient(180deg,rgba(3,35,31,.26) 0%,rgba(4,57,47,.58) 48%,rgba(5,75,61,.96) 100%),url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=85")!important;background-size:cover!important;background-position:center,center 48%!important;background-repeat:no-repeat!important}
+#loginView.login:after{top:39%!important;height:10%!important;opacity:.35}
+#loginView .login-brand{padding:26px 18px 18px!important;text-align:center!important;color:#fff!important}
+#loginView .login-emblem{width:78px!important;height:78px!important;margin:0 auto 13px!important;border-radius:24px!important;color:white!important;background:linear-gradient(145deg,#0ca67b,#034b40)!important}
+#loginView .login-brand .title{color:#fff!important;font-size:clamp(25px,6vw,32px)!important;text-shadow:0 2px 8px rgba(0,0,0,.48)!important;margin-bottom:8px!important}
+#loginView .login-subtitle,#loginView .login-arena-name{color:#fff!important;text-shadow:0 2px 7px rgba(0,0,0,.65)!important}
+#loginView .login-arena-name{font-size:clamp(15px,4vw,19px)!important;margin-bottom:8px!important}
+#loginView .login-heading{color:#fff!important;padding:18px 16px 0!important;text-shadow:0 2px 7px rgba(0,0,0,.35)}
+#loginView .login-user-icon{width:52px!important;height:52px!important;background:#d9f7eb!important;color:#078663!important}
+#loginView>p{color:#e8f6f0!important;margin:7px 0 20px!important;text-shadow:0 1px 5px rgba(0,0,0,.35)}
+#loginView form{position:relative;margin:0 14px 15px!important;padding:16px 16px 18px!important;border-radius:27px!important;border:1px solid #dcece4!important;background:rgba(255,255,255,.98)!important;box-shadow:0 10px 30px rgba(6,53,42,.12)!important}
+#loginView .field{margin:8px 0 17px!important}
+#loginView .field label{color:#26483d!important}
+#loginView .field input{min-height:56px!important;border-radius:17px!important;background:#f5faf8!important;border:1px solid #d6e8df!important}
+#loginView #loginBtn{min-height:62px!important;border-radius:19px!important;margin-top:7px!important}
+#loginView .login-footer{color:#214e42!important;padding:0 18px 12px!important}
+#loginView .login-footer .footer-ball{color:#064f40!important}
+@media(max-width:480px){#loginView.login{width:calc(100% - 24px);margin:12px auto calc(28px + env(safe-area-inset-bottom))!important;border-radius:25px!important;clip-path:inset(0 round 25px)}#loginView.login:before{height:57%!important;background-position:center,center 44%!important}#loginView .login-brand{padding:23px 13px 17px!important}#loginView .login-heading{padding-top:16px!important}#loginView form{margin:0 10px 14px!important;padding:13px 13px 17px!important}#loginView .login-footer{padding-bottom:calc(12px + env(safe-area-inset-bottom))!important}}
 </style></head><body><div class="wrap">
 <header class="top"><div class="brand"><div class="logo">⚽</div><div><div class="title">ملعب جمعية الراكة</div><div class="muted">نظام تسجيل ومراجعة الإيرادات</div></div></div><button id="logout" class="btn secondary hidden">تسجيل الخروج</button></header>
 <div id="notice" class="notice hidden"></div>
