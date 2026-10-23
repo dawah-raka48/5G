@@ -135,6 +135,33 @@ body:has(#loginView:not(.hidden)) .top .logo{width:52px;height:52px;flex-basis:5
 .login-footer .footer-ball{margin-bottom:8px;font-size:28px;color:#064f40}
 .login-footer .footer-ball:before,.login-footer .footer-ball:after{background:#d5e7de}
 @media(max-width:480px){.login{border-radius:26px}.login-brand{padding:25px 16px 25px}.login-emblem{width:82px;height:82px;font-size:45px}.login form{margin:0 12px 13px;padding:10px 14px 17px}.login .field input{min-height:58px}.login #loginBtn{min-height:62px}}
+
+/* Fix: visible stadium photo, balanced spacing, rounded outer frame */
+#loginView.login{isolation:isolate;position:relative;overflow:hidden;border-radius:30px!important;clip-path:inset(0 round 30px);max-width:560px;width:100%;min-height:0;margin:20px auto 28px;padding:0;background:#f5fbf8!important;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 22px 55px rgba(8,65,49,.16)}
+#loginView.login:before{content:"";position:absolute;z-index:0;top:0;left:0;right:0;height:57%;inset-inline:0;background-image:linear-gradient(180deg,rgba(239,248,245,.10) 0%,rgba(11,63,53,.18) 28%,rgba(7,67,55,.76) 66%,#0b6554 100%),url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=85")!important;background-position:center,center 48%!important;background-size:cover!important;background-repeat:no-repeat!important;pointer-events:none}
+#loginView.login:after{content:"";position:absolute;z-index:0;left:-8%;right:-8%;top:42%;height:12%;border:1px solid rgba(255,255,255,.25);border-radius:50%;box-shadow:0 0 0 20px rgba(255,255,255,.045),0 0 0 40px rgba(255,255,255,.025);pointer-events:none}
+#loginView.login>*{position:relative;z-index:1}
+#loginView .login-brand{position:relative!important;inset:auto;text-align:center;padding:30px 22px 30px;color:#104b3d}
+#loginView .login-emblem{width:88px;height:88px;margin:0 auto 14px;border:0;border-radius:26px;background:linear-gradient(145deg,#0ca67b,#034b40);font-size:48px;box-shadow:0 12px 28px rgba(0,40,31,.25)}
+#loginView .login-brand .title{font-size:clamp(26px,5.6vw,34px);color:#064b3c;text-shadow:0 1px 8px rgba(255,255,255,.7)}
+#loginView .login-subtitle{font-size:15px;color:#153d33;font-weight:700;text-shadow:0 1px 8px rgba(255,255,255,.85)}
+#loginView .login-arena-name{font-size:clamp(16px,4vw,21px);font-weight:850;margin-bottom:7px}
+#loginView .login-heading{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:24px 18px 0;font-size:clamp(26px,5.4vw,32px);color:#103f35}
+#loginView .login-user-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#d9f7eb;color:#078663;font-size:31px}
+#loginView>p{text-align:center;padding:0 18px;margin:7px 0 18px;color:#647d73;font-size:15px}
+#loginView>p span[lang="en"]{display:block;margin-top:3px;font-size:13px}
+#loginView form{margin:0 16px 15px;padding:12px 18px 20px;border:1px solid #dcece4;border-radius:27px;background:rgba(255,255,255,.97);box-shadow:0 12px 35px rgba(16,60,48,.10)}
+#loginView .field{margin:12px 0 17px;gap:7px}
+#loginView .field label{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#26483d;font-size:14px;font-weight:800}
+#loginView .field label span[lang="en"]{font-size:12px;color:#7c9188;font-weight:500}
+#loginView .field input{width:100%;min-height:58px;border-radius:17px;border:1px solid #d6e8df;background:#f5faf8;padding:13px 16px;color:#183b32;font-size:17px}
+#loginView #loginBtn{display:flex;align-items:center;justify-content:center;gap:12px;min-height:64px;margin-top:7px;border-radius:19px;background:linear-gradient(115deg,#0da77c,#064e40);box-shadow:0 12px 24px rgba(8,116,90,.18);font-size:21px;font-weight:850}
+#loginView #loginBtn small{font-size:13px;font-weight:500;opacity:.95}
+#loginView #loginBtn:after{content:none}
+#loginView .login-footer{padding:0 20px 23px;text-align:center;color:#214e42;font-size:14px;font-weight:750}
+#loginView .login-footer .footer-ball{margin-bottom:7px;font-size:27px;color:#064f40}
+#loginView .login-footer .footer-ball:before,#loginView .login-footer .footer-ball:after{background:#d5e7de}
+@media(max-width:480px){#loginView.login{margin:14px auto 24px;border-radius:25px!important;clip-path:inset(0 round 25px)}#loginView.login:before{height:56%;background-position:center,center 45%!important}#loginView .login-brand{padding:25px 14px 27px}#loginView .login-emblem{width:78px;height:78px;font-size:43px;border-radius:23px}#loginView form{margin:0 11px 12px;padding:9px 13px 16px}#loginView .field input{min-height:55px}#loginView #loginBtn{min-height:60px}}
 </style></head><body><div class="wrap">
 <header class="top"><div class="brand"><div class="logo">⚽</div><div><div class="title">ملعب جمعية الراكة</div><div class="muted">نظام تسجيل ومراجعة الإيرادات</div></div></div><button id="logout" class="btn secondary hidden">تسجيل الخروج</button></header>
 <div id="notice" class="notice hidden"></div>
