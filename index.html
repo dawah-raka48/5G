@@ -183,6 +183,11 @@ body:has(#loginView:not(.hidden)) .top .logo{width:52px;height:52px;flex-basis:5
 #loginView .login-footer{color:#214e42!important;padding:0 18px 12px!important}
 #loginView .login-footer .footer-ball{color:#064f40!important}
 @media(max-width:480px){#loginView.login{width:calc(100% - 24px);margin:12px auto calc(28px + env(safe-area-inset-bottom))!important;border-radius:25px!important;clip-path:inset(0 round 25px)}#loginView.login:before{height:57%!important;background-position:center,center 44%!important}#loginView .login-brand{padding:23px 13px 17px!important}#loginView .login-heading{padding-top:16px!important}#loginView form{margin:0 10px 14px!important;padding:13px 13px 17px!important}#loginView .login-footer{padding-bottom:calc(12px + env(safe-area-inset-bottom))!important}}
+
+/* Slightly lift the login panel closer to the top browser header */
+@media(max-width:480px){
+  #loginView.login{margin-top:4px!important}
+}
 </style></head><body><div class="wrap">
 <header class="top"><div class="brand"><div class="logo">⚽</div><div><div class="title">ملعب جمعية الراكة</div><div class="muted">نظام تسجيل ومراجعة الإيرادات</div></div></div><button id="logout" class="btn secondary hidden">تسجيل الخروج</button></header>
 <div id="notice" class="notice hidden"></div>
