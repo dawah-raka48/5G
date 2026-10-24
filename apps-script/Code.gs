@@ -73,7 +73,7 @@ function addRevenue_(u,b){
  const bytes=Utilities.base64Decode(m[2]);if(bytes.length>CONFIG.MAX_RECEIPT_BYTES)throw Error('حجم الصورة أكبر من 4 ميجابايت.');
  const name=String(b.receiptName||'receipt').replace(/[^\w.\-\u0600-\u06FF ]/g,'_').slice(0,100),blob=Utilities.newBlob(bytes,m[1],name||'receipt');
  const folder=DriveApp.getFolderById(PropertiesService.getScriptProperties().getProperty('RECEIPTS_FOLDER_ID')),file=folder.createFile(blob);file.setSharing(DriveApp.Access.PRIVATE,DriveApp.Permission.NONE);
- const id=Utilities.getUuid(),now=new Date(),lock=LockService.getScriptLock();lock.waitLock(20000);
+ let now=new Date();if(b.entryDateTime){if(u.role!=='admin')throw Error('تعديل تاريخ الإيراد متاح للمدير العام فقط.');const requested=new Date(String(b.entryDateTime));if(isNaN(requested.getTime()))throw Error('تاريخ ووقت الإيراد غير صحيح.');if(requested.getTime()>Date.now())throw Error('لا يمكن تسجيل إيراد بتاريخ مستقبلي.');now=requested;}const id=Utilities.getUuid(),lock=LockService.getScriptLock();lock.waitLock(20000);
  try{sheet_(REVENUES).appendRow([id,now,team,amount,payment,u.name,u.username,file.getId(),file.getName(),m[1]])}finally{lock.releaseLock()}
  return {ok:true,id:id,message:'تم تسجيل الإيراد.'}
 }
