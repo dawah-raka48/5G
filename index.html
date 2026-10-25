@@ -196,7 +196,22 @@ html,body{min-height:100%;height:auto;overflow-y:auto;-webkit-overflow-scrolling
 @media(max-width:700px){body{padding-bottom:calc(105px + env(safe-area-inset-bottom))!important}.wrap{padding-bottom:calc(125px + env(safe-area-inset-bottom))!important}#revenueForm{padding-bottom:calc(140px + env(safe-area-inset-bottom))}}
 
 /* User management: clean responsive cards */
-.users-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px;padding-top:20px;border-top:1px solid #dce7e2}.users-list-heading h3{margin:0;font-size:19px;font-weight:800;color:#193c35}.users-list-heading>span{font-size:12px;color:#668078;background:#edf5f1;border-radius:999px;padding:7px 11px;white-space:nowrap}.users-cards{display:grid;grid-template-columns:1fr;gap:12px}.user-card{min-width:0;border:1px solid #e0eae5;border-radius:19px;background:linear-gradient(145deg,#fff,#fbfdfc);padding:16px;box-shadow:0 5px 18px rgba(21,66,54,.045)}.user-card-top{display:flex;align-items:center;gap:12px;min-width:0}.user-avatar{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:15px;background:#e2f4ed;color:#13745f;font-size:21px;font-weight:800}.user-identity{display:grid;gap:5px;min-width:0;flex:1}.user-identity strong{font-size:16px;color:#193b34;overflow-wrap:anywhere}.user-identity span{font-size:13px;color:#7a8983;direction:ltr;text-align:right;overflow-wrap:anywhere}.user-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;white-space:nowrap}.user-status i{width:7px;height:7px;border-radius:50%;background:#16966c}.user-status.is-active{color:#12805f}.user-status.is-inactive{color:#b34343}.user-status.is-inactive i{background:#d45c5c}.user-card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:15px;padding-top:13px;border-top:1px solid #e5eeea}.user-role{display:inline-flex;align-items:center;border-radius:10px;background:#eff6f2;color:#315f53;padding:8px 11px;font-size:13px;font-weight:700}.user-role-icon{color:#8aa79b;font-size:18px}@media(min-width:700px){.users-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.user-card{padding:18px}}</style></head><body><div class="wrap">
+.users-list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px;padding-top:20px;border-top:1px solid #dce7e2}.users-list-heading h3{margin:0;font-size:19px;font-weight:800;color:#193c35}.users-list-heading>span{font-size:12px;color:#668078;background:#edf5f1;border-radius:999px;padding:7px 11px;white-space:nowrap}.users-cards{display:grid;grid-template-columns:1fr;gap:12px}.user-card{min-width:0;border:1px solid #e0eae5;border-radius:19px;background:linear-gradient(145deg,#fff,#fbfdfc);padding:16px;box-shadow:0 5px 18px rgba(21,66,54,.045)}.user-card-top{display:flex;align-items:center;gap:12px;min-width:0}.user-avatar{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:15px;background:#e2f4ed;color:#13745f;font-size:21px;font-weight:800}.user-identity{display:grid;gap:5px;min-width:0;flex:1}.user-identity strong{font-size:16px;color:#193b34;overflow-wrap:anywhere}.user-identity span{font-size:13px;color:#7a8983;direction:ltr;text-align:right;overflow-wrap:anywhere}.user-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;white-space:nowrap}.user-status i{width:7px;height:7px;border-radius:50%;background:#16966c}.user-status.is-active{color:#12805f}.user-status.is-inactive{color:#b34343}.user-status.is-inactive i{background:#d45c5c}.user-card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:15px;padding-top:13px;border-top:1px solid #e5eeea}.user-role{display:inline-flex;align-items:center;border-radius:10px;background:#eff6f2;color:#315f53;padding:8px 11px;font-size:13px;font-weight:700}.user-role-icon{color:#8aa79b;font-size:18px}@media(min-width:700px){.users-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.user-card{padding:18px}}</style></head><body>
+<style id="introScreenStyles">
+#introScreen{position:fixed;inset:0;z-index:99999;background:#061d1a;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease}
+#introScreen.intro-hidden{opacity:0;visibility:hidden;pointer-events:none}
+#introScreen video{width:100%;height:100%;object-fit:cover;object-position:center;background:#061d1a}
+#introSkip{position:absolute;top:max(18px,env(safe-area-inset-top));left:18px;z-index:2;border:1px solid #ffffff70;border-radius:999px;padding:11px 18px;background:#071f1dcc;color:#fff;font:700 14px system-ui,-apple-system,"Segoe UI",sans-serif;backdrop-filter:blur(8px)}
+#introSkip:focus-visible{outline:3px solid #8ce3c6;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){#introScreen{transition:none}}
+</style>
+<div id="introScreen" role="dialog" aria-label="مقدمة ملعب جمعية الراكة">
+  <video id="introVideo" autoplay muted playsinline preload="auto" aria-label="مقدمة ملعب جمعية الراكة">
+    <source src="./intro.mp4" type="video/mp4">
+  </video>
+  <button id="introSkip" type="button">تخطي المقدمة ⏭</button>
+</div>
+<div class="wrap">
 <header class="top"><div class="brand"><div class="logo">⚽</div><div><div class="title">ملعب جمعية الراكة</div><div class="muted">نظام تسجيل ومراجعة الإيرادات</div></div></div><button id="logout" class="btn secondary hidden">تسجيل الخروج</button></header>
 <div id="notice" class="notice hidden"></div>
 <section id="installBanner" class="install-banner" aria-label="تثبيت التطبيق">
@@ -278,4 +293,28 @@ async function loadUsers(){let r=await api('listUsers');$('usersList').innerHTML
     navigator.serviceWorker.register('./service-worker.js').catch(err => console.warn('PWA setup:', err));
   });
 }
-</script></body></html> 
+</script>
+<script id="introScreenLogic">
+(function(){
+  const screen=document.getElementById('introScreen');
+  const video=document.getElementById('introVideo');
+  const skip=document.getElementById('introSkip');
+  if(!screen||!video||!skip)return;
+  let seen=false;
+  try{seen=localStorage.getItem('rakahIntroSeen')==='1'}catch(e){}
+  function closeIntro(){
+    if(screen.classList.contains('intro-hidden'))return;
+    try{localStorage.setItem('rakahIntroSeen','1')}catch(e){}
+    screen.classList.add('intro-hidden');
+    video.pause();
+    setTimeout(()=>screen.remove(),650);
+  }
+  skip.addEventListener('click',closeIntro);
+  video.addEventListener('ended',closeIntro);
+  video.addEventListener('error',closeIntro);
+  if(seen){screen.remove();return}
+  const playPromise=video.play();
+  if(playPromise&&typeof playPromise.catch==='function')playPromise.catch(()=>{});
+})();
+</script>
+</body></html> 
